@@ -12,13 +12,17 @@ def getPrice(ids: str):
     if response.status_code == 200:
         jsonResponse = response.json()
         price = jsonResponse[ids]['usd']
-        print(f'Price of {ids}: ${price}')
+        return price
     else:
-        print('Connection to API failed')
+        return 'Connection Error or Invalid ids'
 
+
+"""
+#for testing purposes
 def main():
     ids = input('Enter the ids of the requested crypto asset: ')
     getPrice(ids)
 
 if __name__ == '__main__':
     main()
+"""
