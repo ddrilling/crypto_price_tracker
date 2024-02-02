@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import price_tracker
 
 ctk.set_appearance_mode('dark')
 ctk.set_default_color_theme('dark-blue')
@@ -15,26 +16,37 @@ class App(ctk.CTk):
 
         #ids label
         self.idsLabel = ctk.CTkLabel(self, text = 'IDS')
-        self.idsLabel.grid(row = 2, column = 1, padx = 20, pady = 20, sticky = "nsew")
+        self.idsLabel.grid(row = 2, column = 1, padx = 20, pady = 20, sticky = 'nsew')
 
         #ids entry 
         self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ids of desired curency')
-        self.idsEntry.grid(row = 2, column = 2, columnspan = 2, padx = 20, pady = 20, sticky = "nsew")
+        self.idsEntry.grid(row = 2, column = 2, columnspan = 2, padx = 20, pady = 20, sticky = 'nsew')
 
         #search ids button
-        self.idsSearchButton = ctk.CTkButton(self, fg_color = 'black',text = 'Search')
-        self.idsSearchButton.grid(row = 3, column = 2, columnspan = 2, rowspan = 1, padx = 10, pady = 20, sticky = "ew")
+        self.idsSearchButton = ctk.CTkButton(self, fg_color = 'black',text = 'Search', command = self.fillDisplayBox)
+        self.idsSearchButton.grid(row = 3, column = 2, columnspan = 2, rowspan = 1, padx = 10, pady = 20, sticky = 'ew')
 
         #get value from entry
         ids = self.idsEntry.get()
 
         #field for price of currency
         self.displayBox = ctk.CTkTextbox(self, width = 100, height = 50)
-        self.displayBox.grid(row = 4, column = 2, columnspan = 2, padx = 20, pady = 20, sticky = "nsew")
+        self.displayBox.grid(row = 4, column = 2, columnspan = 2, padx = 20, pady = 20, sticky = 'nsew')
 
-    def returnResult(self):
-        
+    #pass ids through price_tracker
+    def getIds(self):
+        text = self.idsEntry.get()
+        return text
+    
+    def getPrice(self, text):
+        price = price_tracker.getPrice(text)
+        return price
 
+    def fillDisplayBox(self):
+        t = self.getIds()
+        p = self.getPrice(t)
+        self.displayBox.delete('0.0', 'end')
+        self.displayBox.insert('0.0', f'${p}')
 
 if __name__ == '__main__':
     app = App()

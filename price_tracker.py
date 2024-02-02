@@ -12,7 +12,8 @@ def getPrice(ids: str):
     if response.status_code == 200:
         jsonResponse = response.json()
         price = jsonResponse[ids]['usd']
-        return price
+        roundedPrice = round(price, 4)
+        return roundedPrice
     else:
         return 'Connection Error or Invalid ids'
 
