@@ -1,3 +1,6 @@
+import sys
+sys.dont_write_bytecode = True
+
 import customtkinter as ctk
 import price_tracker
 
@@ -29,7 +32,7 @@ class App(ctk.CTk):
 
         #ids entry 
         self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ids of desired curency')
-        self.idsEntry.grid(row = 2, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'nsew')
+        self.idsEntry.grid(row = 2, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'ew')
 
         #search ids button
         self.idsSearchButton = ctk.CTkButton(self, fg_color = 'black',text = 'Search', command = self.fillDisplayBox)
