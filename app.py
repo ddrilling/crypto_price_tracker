@@ -1,3 +1,4 @@
+#to prevent python from generating pyc files
 import sys
 sys.dont_write_bytecode = True
 
@@ -26,12 +27,17 @@ class App(ctk.CTk):
         self.sideBarTitle = ctk.CTkLabel(self.sideBarFrame, text = 'Trending', font = ctk.CTkFont(size = 16, weight = 'bold'), width = 250)
         self.sideBarTitle.grid(row = 0, column = 0, padx = 10, pady = (10, 20))
 
+        #sidebar items (5 trending coins)
+        for i in range(5):
+            self
+
+
         #ids label
         self.idsLabel = ctk.CTkLabel(self, text = 'Search by ID')
         self.idsLabel.grid(row = 1, column = 1, padx = 50, pady = 20, sticky = 'nsew')
 
         #ids entry 
-        self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ids of desired curency')
+        self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired curency')
         self.idsEntry.grid(row = 2, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'ew')
 
         #search ids button
@@ -60,6 +66,15 @@ class App(ctk.CTk):
         p = self.getPrice(t)
         self.displayBox.delete('0.0', 'end')
         self.displayBox.insert('0.0', f'${p}')
+
+    def createTrendingItem(self, price, image = None):
+        trendingDict = self.getTrending
+        label = ctk.CTkLabel(self, text = price, image = image, compound = 'left')
+        label.grid(row = len(trendingDict), column = 0, padx = 10, pady = 10)
+
+    def getTrending(self):
+        trendingList = price_tracker.getTrending()
+        return trendingList
 
 if __name__ == '__main__':
     app = App()
