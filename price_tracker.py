@@ -24,16 +24,17 @@ def getTrending():
     response = requests.get(trendingUrl)
 
     trendingCoins = {}
-
     if response.status_code == 200:
         jsonResponse = response.json()
-        for t in jsonResponse:
-            for coins in t['coins']:
-                for item in coins['item']:
-                    name = item['name']
-                    for data in item['data']:
-                        price = data['price']
-                        trendingCoins.update({name: price})
+        coins = jsonResponse['coins']
+        for coin in coins:
+            for t in coin['item']:
+                name = t['name']
+                image = t['small']
+                for p in t['data']:
+                    price = p['price']
+        trendingCoins.update(name,(price, image))
+
 
         return trendingCoins
 
