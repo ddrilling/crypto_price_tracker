@@ -28,15 +28,12 @@ def getTrending():
         jsonResponse = response.json()
         coins = jsonResponse['coins']
         for coin in coins:
-            for t in coin['item']:
-                name = t['name']
-                image = t['small']
-                for p in t['data']:
-                    price = p['price']
-        trendingCoins.update(name,(price, image))
-
-
+            name = coin.get('name')
+            image = coin.get('small')
+            price = coin.get('price')
+            trendingCoins.update({name: {'price': price, 'image': image}})
         return trendingCoins
+
 
     else:
         return 'Error occurred'
@@ -45,6 +42,7 @@ def getTrending():
 if __name__ == '__main__':
     x = getTrending()
     print(x)
+
 """
 #for testing purposes
 def main():
