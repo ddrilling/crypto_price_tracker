@@ -17,7 +17,7 @@ class App(ctk.CTk):
         self.geometry(f"{1100}x{580}")
 
         #grid layout
-        self.grid_columnconfigure(1,weight = 1)
+        self.grid_columnconfigure(2,weight = 1)
         self.grid_rowconfigure(4, weight = 0)
         self.grid_columnconfigure(3, weight = 1)
 
@@ -35,15 +35,26 @@ class App(ctk.CTk):
         #trendingImages = self.getTrendingImages(trendingDict)
 
         self.trendingLabel1 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[0], compound='left', padx = 10, pady = 10)
+        self.trendingLabel1.grid(row = 1, column = 0, pady = (0,10), sticky = 'w')
         self.priceLabel1 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[0], compound = 'right', padx = 10, pady = 10)
+        self.priceLabel1.grid(row = 1, column = 1, pady = (0,10), sticky = 'e')
         self.trendingLabel2 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[1], compound = 'left', padx = 10, pady = 10)
+        self.trendingLabel2.grid(row = 2, column = 0, pady = (0,10), sticky = 'w')
         self.priceLabel2 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[1], compound = 'right', padx = 10, pady = 10)
+        self.priceLabel2.grid(row = 2, column = 1, pady = (0,10), sticky = 'e')
         self.trendingLabel3 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[2], compound = 'left', padx = 10, pady = 10)
+        self.trendingLabel3.grid(row = 3, column = 0, pady = (0,10), sticky = 'w')
         self.priceLabel3 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[2], compound = 'right', padx = 10, pady = 10)
+        self.priceLabel3.grid(row = 3, column = 1, pady = (0,10), sticky = 'e')
         self.trendingLabel4 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[3], compound = 'left', padx = 10, pady = 10)
+        self.trendingLabel4.grid(row = 4, column = 0, pady = (0,10), sticky = 'w')
         self.priceLabel4 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[3], compound = 'right', padx = 10, pady = 10)
+        self.priceLabel4.grid(row = 4, column = 1, pady = (0,10), sticky = 'e')
         self.trendingLabel5 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[4], compound = 'left', padx = 10, pady = 10)
+        self.trendingLabel5.grid(row = 5, column = 0, pady = (0,10), sticky = 'w')
         self.priceLabel5 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[4], compound = 'right', padx = 10, pady = 10)
+        self.priceLabel5.grid(row = 5, column = 1, pady = (0,10), sticky = 'e')
+
 
         #ids label
         self.idsLabel = ctk.CTkLabel(self, text = 'Search by ID')
@@ -103,9 +114,6 @@ class App(ctk.CTk):
         for k, v in trendingList.items():
             priceList.append(v['price'])
         return priceList
-    
-    def getIndex(self, trendingList, n):
-        return trendingList[n]
     
     """
     def getTrendingImage(self, trendingList):
