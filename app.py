@@ -36,11 +36,11 @@ class App(ctk.CTk):
 
         self.trendingLabel1 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[0], compound='left', padx = 10, pady = 10)
         self.priceLabel1 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[0], compound = 'right', padx = 10, pady = 10)
-        self.trendingLabel2 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[1], compund = 'left', padx = 10, pady = 10)
+        self.trendingLabel2 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[1], compound = 'left', padx = 10, pady = 10)
         self.priceLabel2 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[1], compound = 'right', padx = 10, pady = 10)
         self.trendingLabel3 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[2], compound = 'left', padx = 10, pady = 10)
         self.priceLabel3 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[2], compound = 'right', padx = 10, pady = 10)
-        self.trendingLabel4 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[3], compund = 'left', padx = 10, pady = 10)
+        self.trendingLabel4 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[3], compound = 'left', padx = 10, pady = 10)
         self.priceLabel4 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[3], compound = 'right', padx = 10, pady = 10)
         self.trendingLabel5 = ctk.CTkLabel(self.sideBarFrame, text = trendingNames[4], compound = 'left', padx = 10, pady = 10)
         self.priceLabel5 = ctk.CTkLabel(self.sideBarFrame, text = trendingPrices[4], compound = 'right', padx = 10, pady = 10)
@@ -103,6 +103,9 @@ class App(ctk.CTk):
         for k, v in trendingList.items():
             priceList.append(v['price'])
         return priceList
+    
+    def getIndex(self, trendingList, n):
+        return trendingList[n]
     
     """
     def getTrendingImage(self, trendingList):
