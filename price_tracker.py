@@ -27,28 +27,19 @@ def getTrending():
     if response.status_code == 200:
         jsonResponse = response.json()
         coins = jsonResponse['coins']
-        for coin in coins:
-            name = coin.get('name')
-            image = coin.get('small')
-            price = coin.get('price')
-            trendingCoins.update({name: {'price': price, 'image': image}})
+        for coin in coins[:5]:
+            name = coin['item']['name']
+            price = coin['item']['data']['price']
+            image = coin['item']['small']
+            trendingCoins[name] = {'price': price, 'image': image}
         return trendingCoins
-
 
     else:
         return 'Error occurred'
 
 
-if __name__ == '__main__':
-    x = getTrending()
-    print(x)
-
 """
 #for testing purposes
-def main():
-    ids = input('Enter the ids of the requested crypto asset: ')
-    getPrice(ids)
 
 if __name__ == '__main__':
-    main()
 """
