@@ -57,18 +57,18 @@ class App(ctk.CTk):
         self.geometry(f"{1100}x{580}")
 
         #grid layout
-        self.grid_columnconfigure(2,weight = 1)
-        self.grid_rowconfigure(4, weight = 0)
-        self.grid_columnconfigure(3, weight = 1)
+        self.grid_columnconfigure(2, weight = 1)
+        self.grid_rowconfigure(4, weight = 1)
 
         #sidebar for trending coins
         self.trendingItemsFrame = TrendingFrame(master = self, width = 250)
         self.trendingItemsFrame.grid(row = 0, column = 0, rowspan = 2, sticky = 'nswew')
-        self.trendingItemsFrame.grid_rowconfigure(5, weight = 1)
+        self.trendingItemsFrame.grid_columnconfigure(2, weight = 1)
+        self.trendingItemsFrame.grid_rowconfigure(10, weight = 1)
         self.sideBarTitle = ctk.CTkLabel(self.trendingItemsFrame, text = 'Trending', font = ctk.CTkFont(size = 16, weight = 'bold'), width = 250)
         self.sideBarTitle.grid(row = 0, column = 0, padx = 10, pady = (10, 20))
 
-
+        #trending items variables
         self.trendingItemsFrame.trendingList = self.trendingItemsFrame.getTrending()
         trendingList = self.trendingItemsFrame.trendingList
         self.trendingItemsFrame.nameList = self.trendingItemsFrame.getTrendingName(trendingList)
@@ -76,27 +76,28 @@ class App(ctk.CTk):
         self.trendingItemsFrame.priceList = self.trendingItemsFrame.getTrendingPrice(trendingList)
         priceList = self.trendingItemsFrame.priceList
 
-        for i in range(0,5):
+        #create trending items
+        for i in range(0, 10):
             self.trendingItemsFrame.addItem(nameList[i], priceList[i], i + 1)
 
         #ids label
-        self.idsLabel = ctk.CTkLabel(self, text = 'Search by ID')
-        self.idsLabel.grid(row = 1, column = 1, padx = 50, pady = 20, sticky = 'nsew')
+        self.idsLabel = ctk.CTkLabel(self, text = 'Search by ID', font = ctk.CTkFont(size = 14, weight = 'bold'), width = 100)
+        self.idsLabel.grid(row = 0, column = 2, padx = 50, pady = 10, sticky = 'ew')
 
         #ids entry 
-        self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired curency')
-        self.idsEntry.grid(row = 2, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'ew')
+        self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired curency', height = 50, border_width = 10)
+        self.idsEntry.grid(row = 1, column = 1, columnspan = 2, padx = 50, pady = 10, sticky = 'ew')
 
         #search ids button
         self.idsSearchButton = ctk.CTkButton(self, fg_color = 'black',text = 'Search', command = self.fillDisplayBox)
-        self.idsSearchButton.grid(row = 3, column = 1, columnspan = 2, rowspan = 1, padx = 50, pady = 20, sticky = 'ew')
+        self.idsSearchButton.grid(row = 2, column = 1, columnspan = 2, rowspan = 1, padx = 50, pady = 10, sticky = 'ew')
 
         #get value from entry
         ids = self.idsEntry.get()
 
         #field for price of currency
         self.displayBox = ctk.CTkTextbox(self, width = 100, height = 50)
-        self.displayBox.grid(row = 4, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'nsew')
+        self.displayBox.grid(row = 3, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'nsew')
 
 
     #pass ids through price_tracker
