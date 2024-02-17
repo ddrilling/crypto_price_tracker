@@ -46,8 +46,45 @@ class TrendingFrame(ctk.CTkFrame):
         for k, v in trendingList.items():
             priceList.append(v['price'])
         return priceList
+
+
+class SearchFrame(ctk.CTkFrame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+
+        self.idEntryValue = ' '
+
+    def createLabel(self):
+        idLabel = ctk.CTkLabel(self, text = 'Search By ID', font = ctk.CTkFont(size = 14, weight = 'bold'), width = 50)
+        idLabel.grid(row = 0, padx = 10, pady = 10, sticky = 'ew')
+    
+    def createEntryBox(self):
+        idEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired cryptocurrency', height = 25, border_width = 5)
+        idEntry.grid(row = 1, columnspan = 2, padx = 10, pady = 5, sticky = 'ew')
         
 
+    def getEntry(self):
+        return self.idEntry.get()
+
+    def searchButton(self, searchCommand):
+        searchButton = ctk.CTkButton(self, fg_color = 'black', text = 'Search', command = searchCommand)
+        searchButton.grid(row = 2, columnspan = 2, padx = 20, pady = 5, sticky = 'ew')
+
+    def createDisplayBox(self):
+        displayBox = ctk.CTkTextbox(self, width = 50, height = 25)
+        displayBox.grid(row = 3, columnspan = 2, padx = 10, pady = 5, sticky = 'nsew')
+
+    def getPrice(self, id):
+        price = price_tracker.getPrice(id)
+        return price
+    
+    def fillDisplayBox(self):
+        t = self.getEntry()
+        p = self.getPrice(t)
+        self.displayBox.delete('0.0', 'end')
+        self.displayBox.insert('0.0', f'${p}')
+
+    
 
 class App(ctk.CTk):
     def __init__(self):
@@ -62,7 +99,7 @@ class App(ctk.CTk):
 
         #sidebar for trending coins
         self.trendingItemsFrame = TrendingFrame(master = self, width = 250)
-        self.trendingItemsFrame.grid(row = 0, column = 0, rowspan = 2, sticky = 'nswew')
+        self.trendingItemsFrame.grid(row = 0, column = 0, rowspan = 2, sticky = 'nsew')
         self.trendingItemsFrame.grid_columnconfigure(2, weight = 1)
         self.trendingItemsFrame.grid_rowconfigure(10, weight = 1)
         self.sideBarTitle = ctk.CTkLabel(self.trendingItemsFrame, text = 'Trending', font = ctk.CTkFont(size = 16, weight = 'bold'), width = 250)
@@ -80,40 +117,23 @@ class App(ctk.CTk):
         for i in range(0, 10):
             self.trendingItemsFrame.addItem(nameList[i], priceList[i], i + 1)
 
-        #ids label
-        self.idsLabel = ctk.CTkLabel(self, text = 'Search by ID', font = ctk.CTkFont(size = 14, weight = 'bold'), width = 100)
-        self.idsLabel.grid(row = 0, column = 2, padx = 50, pady = 10, sticky = 'ew')
+        #create search frame 
+        self.searchFrame = SearchFrame(master = self, width = 250)
+        self.searchFrame.grid(row = 0, column = 1, columnspan = 2, rowspan = 2, sticky = 'nsew')
+        self.searchFrame.grid_columnconfigure(0, weight = 1)
+        self.searchFrame.grid_rowconfigure(4, weight = 1)
 
-        #ids entry 
-        self.idsEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired curency', height = 50, border_width = 10)
-        self.idsEntry.grid(row = 1, column = 1, columnspan = 2, padx = 50, pady = 10, sticky = 'ew')
+        #id label
+        self.searchFrame.createLabel()
+        
+        #entry box
+        self.searchFrame.createEntryBox()
 
-        #search ids button
-        self.idsSearchButton = ctk.CTkButton(self, fg_color = 'black',text = 'Search', command = self.fillDisplayBox)
-        self.idsSearchButton.grid(row = 2, column = 1, columnspan = 2, rowspan = 1, padx = 50, pady = 10, sticky = 'ew')
+        #search Button
+        self.searchFrame.searchButton(self.searchFrame.fillDisplayBox)
 
-        #get value from entry
-        ids = self.idsEntry.get()
-
-        #field for price of currency
-        self.displayBox = ctk.CTkTextbox(self, width = 100, height = 50)
-        self.displayBox.grid(row = 3, column = 1, columnspan = 2, padx = 50, pady = 20, sticky = 'nsew')
-
-
-    #pass ids through price_tracker
-    def getIds(self):
-        text = self.idsEntry.get()
-        return text
-    
-    def getPrice(self, text):
-        price = price_tracker.getPrice(text)
-        return price
-
-    def fillDisplayBox(self):
-        t = self.getIds()
-        p = self.getPrice(t)
-        self.displayBox.delete('0.0', 'end')
-        self.displayBox.insert('0.0', f'${p}')
+        #display box
+        self.searchFrame.createDisplayBox()
     
     """
     def getTrendingImage(self, trendingList):
