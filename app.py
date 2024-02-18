@@ -52,27 +52,30 @@ class SearchFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.idEntryValue = ' '
+        self.idEntryValue = ''
+        self.idEntry = ctk.StringVar()
+        displayBox = ctk.StringVar()
 
     def createLabel(self):
         idLabel = ctk.CTkLabel(self, text = 'Search By ID', font = ctk.CTkFont(size = 14, weight = 'bold'), width = 50)
         idLabel.grid(row = 0, padx = 10, pady = 10, sticky = 'ew')
     
     def createEntryBox(self):
-        idEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired cryptocurrency', height = 25, border_width = 5)
-        idEntry.grid(row = 1, columnspan = 2, padx = 10, pady = 5, sticky = 'ew')
+        self.idEntry = ctk.CTkEntry(self, placeholder_text = 'Enter the ID of desired cryptocurrency', height = 25, border_width = 5)
+        self.idEntry.grid(row = 1, columnspan = 2, padx = 10, pady = 5, sticky = 'ew')
         
 
     def getEntry(self):
-        return self.idEntry.get()
+        idEntryValue = self.idEntry.get()
+        return idEntryValue
 
     def searchButton(self, searchCommand):
         searchButton = ctk.CTkButton(self, fg_color = 'black', text = 'Search', command = searchCommand)
         searchButton.grid(row = 2, columnspan = 2, padx = 20, pady = 5, sticky = 'ew')
 
     def createDisplayBox(self):
-        displayBox = ctk.CTkTextbox(self, width = 50, height = 25)
-        displayBox.grid(row = 3, columnspan = 2, padx = 10, pady = 5, sticky = 'nsew')
+        self.displayBox = ctk.CTkTextbox(self, width = 50, height = 25)
+        self.displayBox.grid(row = 3, columnspan = 2, padx = 10, pady = 5, sticky = 'nsew')
 
     def getPrice(self, id):
         price = price_tracker.getPrice(id)
@@ -134,6 +137,7 @@ class App(ctk.CTk):
 
         #display box
         self.searchFrame.createDisplayBox()
+
     
     """
     def getTrendingImage(self, trendingList):
