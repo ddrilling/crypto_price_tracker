@@ -87,7 +87,12 @@ class SearchFrame(ctk.CTkFrame):
         self.displayBox.delete('0.0', 'end')
         self.displayBox.insert('0.0', f'${p}')
 
-    
+
+class NewsFrame(ctk.CTkFrame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+
+        
 
 class App(ctk.CTk):
     def __init__(self):

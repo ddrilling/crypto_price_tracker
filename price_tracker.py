@@ -16,7 +16,7 @@ def getPrice(ids: str):
         roundedPrice = round(price, 4)
         return roundedPrice
     else:
-        return 'Connection Error or Invalid ids'
+        return 'Connection Error or Invalid id'
 
 
 def getTrending():
@@ -36,6 +36,7 @@ def getTrending():
 
     else:
         return 'Error occurred'
+        
 
 
 '''
