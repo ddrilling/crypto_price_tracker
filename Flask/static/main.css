@@ -3,7 +3,7 @@ body {
     background-color: lightslategray;
 }
 
-ul {
+div.menu {
     margin: 0;
     padding: 0;
     width: 25%;
