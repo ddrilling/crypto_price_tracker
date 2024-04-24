@@ -27,12 +27,10 @@
     <div class = "leftPanel">
         <p>Trending</p>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            {% for i in tredningList %}
+            <li>{% i %}</li>
         </ul>
+        <button class = "refresh">Refresh</button>
     </div>
 
 </div>
